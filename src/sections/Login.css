@@ -1,0 +1,29 @@
+.login {
+  background-image: linear-gradient(to bottom right, rgb(172, 171, 250), rgb(20, 39, 141));
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.S_button{
+  border-radius: 20%;
+  border-width: 0; 
+  background-color: #738adb;
+  width: 300px;
+  height: 30px;
+  color: #eff2f2;
+  font-weight: 800;
+}
+.S_button:hover{
+  background-color: #1938a7;
+  width: 320px;
+  height: 40px;
+  transition: 0.5s;
+}
+
+.login > div > img{
+  display: grid;
+  place-items: center;
+  object-fit: contain;
+}

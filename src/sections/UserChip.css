@@ -1,0 +1,25 @@
+.user__chip {
+  display: flex;
+  border-top-left-radius: 25%;
+  border-bottom-left-radius: 30%;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 50px;
+  border-width: 1px;
+  border-color: black;
+  box-shadow: 5px 5px 10px;
+  background-color: #363a3f;
+}
+
+h4 {
+  margin-right: 15px;
+  color: rgb(199, 199, 199);
+}
+
+.Avatar1 {
+  margin-right: auto;
+  height: 50px;
+  width: 50px;
+}

@@ -1,0 +1,15 @@
+.Lottie-Load {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+.Lottie-Complete {
+  align-items: center;
+  justify-content: center;
+}
+
+.Loader-whole {
+  height: 100vh;
+  background-color: #2b2c54;
+}
+
