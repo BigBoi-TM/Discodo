@@ -1,22 +1,73 @@
-.sidebarChannel:hover > h4{
+.sidebarChannel:hover > h4 {
   color: white;
-  background-color: #48464b
+  background-color: #48464b;
 }
-.sidebarChannel{
+/*.divider{
+  color: lightgrey;
+}
+*/
+.sidebarChannel {
+  text-decoration: none;
   display: flex;
-  flex: 0.40;
+  flex: 0.4;
   flex-direction: column;
 }
 
-.sidebarChannel > h4{
+.tcLink {
+  padding-left: 5px;
+  text-decoration: none;
+  display: flex;
+  flex: 0.4;
+  flex-direction: column;
+  transition: 0.5s;
+}
+
+.tcLink:hover {
+  transition: 0.5s;
+  color: white;
+  background-color: #48464b;
+}
+.channelText {
+  display: flex;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: small;
+}
+.sidebarChannel > h4 {
   display: felx;
-  padding-left: 15px;
+  padding-left: 5px;
   align-items: center;
   background-color: #2f3135;
   color: gray;
   cursor: pointer;
 }
 
-.sidebarChannel__hash{
-  font-size: 25px;
+.sidebarChannel__hash {
+  text-decoration: none;
+  font-size: 20px;
 }
+
+.vcLink {
+  padding-left: 5px;
+  text-decoration: none;
+  display: flex;
+  flex: 0.4;
+  flex-direction: column;
+  transition: 0.5s;
+}
+
+.vcLink:hover {
+  transition: 0.5s;
+  color: white;
+  background-color: #48464b;
+}
+
+.vcIcon {
+  padding-top: 0px;
+}
+
+/*
+.sidebarVoiceChannel__hash {
+  padding-top: 20px;
+}
+*/

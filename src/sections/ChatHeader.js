@@ -2,16 +2,20 @@ import React, { useState } from "react";
 import ReactTooltip from "react-tooltip";
 import "./ChatHeader.css";
 
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import EditLocationIcon from "@material-ui/icons/EditLocation";
-import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import SearchIcon from "@material-ui/icons/Search";
-import SendIcon from "@material-ui/icons/Send";
-import HelpIcon from "@material-ui/icons/Help";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import EditLocationIcon from "@mui/icons-material/EditLocation";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import SearchIcon from "@mui/icons-material/Search";
+import SendIcon from "@mui/icons-material/Send";
+import HelpIcon from "@mui/icons-material/Help";
 import Users_Online from "./Users-Online";
+import HelpModal from "./Help";
 
 function ChatHeader({ channelName }) {
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div className="chatHeader">
@@ -44,7 +48,9 @@ function ChatHeader({ channelName }) {
           data-delay-show="1000"
           data-place="bottom"
           className="HelpIcon"
+          onClick={() => setOpen(true)}
         />
+        <HelpModal onClose={handleClose} />
         <ReactTooltip globalEventOff="click" />
       </div>
     </div>

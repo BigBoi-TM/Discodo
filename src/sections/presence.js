@@ -1,40 +1,47 @@
-/*
+import React, { useEffect } from "react";
+import db, { database, auth } from "./firebase";
+import { useSelector } from "react-redux";
+import { selectUser } from "../data/data_components/userSlice";
 
+const Presence = () => {
+  const user = useSelector(selectUser);
+  const User = auth.currentUser;
+  const userId = auth.currentUser.uid;
+  const reference = database.ref(`/online/${userId}`);
+  const dbReference = db.collection("Users").doc(`${userId}`);
+  const info = {
+    uid: User.uid,
+    photo: User.photoURL,
+    displayName: User.displayName,
+    online: true
+  };
 
-import firebaseApp from "./firebase";
-import {
-  getDatabase,
-  ref,
-  onValue,
-  push,
-  onDisconnect,
-  set,
-  serverTimestamp
-} from "@firebase/database";
-
-// Since I can connect from multiple devices or browser tabs, we store each connection instance separately
-// any time that connectionsRef's value is null (i.e. has no children) I am offline
-const db = getDatabase();
-const myConnectionsRef = ref(db, "users/joe/connections");
-
-// stores the timestamp of my last disconnect (the last time I was seen online)
-const lastOnlineRef = ref(db, "users/joe/lastOnline");
-
-const connectedRef = ref(db, ".info/connected");
-onValue(connectedRef, (snap) => {
-  if (snap.val() === true) {
-    // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
-    const con = push(myConnectionsRef);
-
-    // When I disconnect, remove this device
-    onDisconnect(con).remove();
-
-    // Add this device to my connections list
-    // this value could contain info about the device or a timestamp too
-    set(con, true);
-
-    // When I disconnect, update the last time I was seen online
-    onDisconnect(lastOnlineRef).set(serverTimestamp());
-  }
-});
-*/
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // Set the /users/:userId value to true
+        reference.set(true).then(() => console.log("Online presence set"));
+      } else {
+        // Remove the node whenever the client disconnects
+        reference
+          .remove()
+          .then(() => console.log("On disconnect function configured."));
+      }
+    });
+  }, [reference, userId]);
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // Set the /users/:userId value to true
+        dbReference
+          .set(info)
+          .then(() => console.log("Firebase presence set"))
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+      } else {
+        dbReference.delete();
+      }
+    });
+  }, [dbReference, info]);
+};

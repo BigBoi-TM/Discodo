@@ -5,8 +5,8 @@ import { CSSTransition } from "react-transition-group";
 import ReactDOM from "react-dom";
 import { selectUser } from "../data/data_components/userSlice";
 import { useSelector } from "react-redux";
-import CloseIcon from "@material-ui/icons/Close";
-import { Avatar } from "@material-ui/core";
+import CloseIcon from "@mui/icons-material/Close";
+import { Avatar } from "@mui/material";
 
 const Profile = (props2) => {
   const user = useSelector(selectUser);

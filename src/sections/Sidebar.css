@@ -1,121 +1,145 @@
-.sidebar{
-	display: flex;
-	flex-direction: column;
-	flex: 0.25;
-	height: 100vh;
-	background-color: #2f3135;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 0.25;
+  height: 100vh;
+  background-color: #2f3135;
 }
 
-.sidebar__top{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 20px;
-	background-color: #2f3135;
-	color: white;
-	border-bottom: thick double #1a1a1a;
+.sidebar__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #2f3135;
+  color: white;
+  border-bottom: thick double #1a1a1a;
 }
 
-.sidebar__channels{
-	overflow-y: scroll;
+.sidebar__channels {
+  overflow-y: scroll;
 }
 
 .sidebar__channels:-webkit-scrollbar {
   display: none;
 }
 
-.sidebar__channels{
+.sidebar__channels {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.sidebar__channels{
-	flex: 1;
+.sidebar__channels {
+  flex: 1;
 }
 
-.sidebar__addChannel{
-	cursor: pointer;
+.channel-button {
+  color: grey;
+  transition: 0.5s;
 }
-.sidebar__addChannel:hover{
-	color: white;
-}
-
-.sidebar__channelsHeader{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px;
-	background-color: #2f3135;
-	color: grey;
+.channel-button:hover {
+  color: white;
+  transition: 0.5s;
 }
 
-.sidebar__voiceChannelsHeader{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px;
-	background-color: #2f3135;
-	color: grey;
+.channel-dropdown, .vchannel-dropdown{
+  color: grey;
+  transition: 0.5s;
+}
+.channel-dropdown:hover, .vchannel-dropdown:hover{
+  color: white;
+  transition: 0.5s;
 }
 
-.sidebar__header{
-	display: flex;
-	align-items: center;
-}
-.sidebar__voice{
-	display: none;
+.sidebar__addChannel {
+  cursor: pointer;
 }
 
-.sidebar__profile{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	color: grey;
-	background-color: #2f3135;
-	padding: 10px;
-	border-top: 1px solid gray;
+.accordianebar__channelsList {
+  align-items: left;
+  background-color: #2f3135;
 }
 
-.sidebar__voiceInfo{
-	flex: 1;
-	padding: 10px;
+.sidebar__channelsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  background-color: #2f3135;
+  color: grey;
 }
 
-.sidebar__voiceIcon{
-	color: #4fb185
+.sidebar__header:hover {
+  color: white;
+}
+
+.sidebar__voiceChannelsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #2f3135;
+  color: grey;
+}
+
+.sidebar__header {
+  display: flex;
+  align-items: center;
+}
+.sidebar__voice {
+  display: none;
+}
+
+.sidebar__profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: grey;
+  background-color: #2f3135;
+  padding: 10px;
+  border-top: 1px solid gray;
+}
+
+.sidebar__voiceInfo {
+  flex: 1;
+  padding: 10px;
+}
+
+.sidebar__voiceIcon {
+  color: #4fb185;
 }
 
 .sidebar__voiceIcons:hover {
-	cursor: pointer;
-	color: #d80808;
-	transition: 0.5s;
+  cursor: pointer;
+  color: #d80808;
+  transition: 0.5s;
 }
 
-.sidebar__voiceInfo > h3{
-	color: #4fb185
+.sidebar__voiceInfo > h3 {
+  color: #4fb185;
 }
 
-.sidebar__profileInfo{
-	flex: 1;
-	padding: 10px;
+.sidebar__profileInfo {
+  flex: 1;
+  padding: 10px;
 }
 
-.sidebar__profileInfo > h3{
-	color: white;
+.sidebar__profileInfo > h3 {
+  color: white;
 }
 
-.sidebar__profileIcons > .MuiSvgIcon-root{
-	padding:10px;
+.sidebar__profileIcons > .MuiSvgIcon-root {
+  padding: 10px;
 }
 
-.sidebar__profileIcons > .MuiSvgIcon-root:hover{
-	cursor: pointer;
-	transition: 0.5s;
-	color: white;
+.sidebar__profileIcons > .MuiSvgIcon-root:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  color: white;
 }
 
-.sidebar__profileIcons > .ExitToAppIcon:hover{
-	cursor: pointer;
-	transition: 0.5s;
-	color: red;
+.sidebar__profileIcons > .ExitToAppIcon:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  color: red;
 }

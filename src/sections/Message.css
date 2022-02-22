@@ -1,19 +1,31 @@
+/*
 .message {
   display: flex;
   align-items: center;
   padding: 20px;
   color: white;
 }
-.message:hover {
+.message:hover{
   background-color: rgb(53, 53, 53);
   transition: 0.3s;
-}
+} 
 
 .message__info {
   margin-left: 20px;
 }
+
 .message__timestamp {
   color: gray;
   margin-left: 20px;
   font-size: x-small;
+}
+.message__deleteButton {
+  display: none;
+}
+.messege__uid {
+  display: none;
+}
+*/
+.attachment{
+  display: none;
 }

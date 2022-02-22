@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { selectUser } from "./data/data_components/userSlice";
-import { auth, database } from "./sections/firebase";
+import db, { auth, database } from "./sections/firebase";
 import Login from "./sections/Login";
 import Room from "./Room";
 import { login, logout } from "./data/data_components/userSlice";
@@ -11,6 +11,7 @@ import { login, logout } from "./data/data_components/userSlice";
 function Whole() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  //const userRef = db.collection("users");
   
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -24,6 +25,7 @@ function Whole() {
             displayName: authUser.displayName
           })
         );
+
       } else {
         //user is logged out
         dispatch(logout());

@@ -7,11 +7,10 @@ import Login from "./sections/Login";
 import Room from "./Room";
 import { login, logout } from "./data/data_components/userSlice";
 
-
 function Whole() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  
+
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -21,7 +20,8 @@ function Whole() {
             uid: authUser.uid,
             photo: authUser.photoURL,
             email: authUser.email,
-            displayName: authUser.displayName
+            displayName: authUser.displayName,
+            online: true
           })
         );
       } else {
@@ -47,4 +47,4 @@ function Whole() {
   );
 }
 
-export default Whole
+export default Whole;

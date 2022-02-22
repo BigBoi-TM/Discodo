@@ -7,20 +7,20 @@
 }
 
 .S_button{
-  border-radius: 20%;
+  /*border-radius: 20%;
   border-width: 0; 
-  background-color: #738adb;
+  background-color: #738adb;*/
   width: 300px;
   height: 30px;
   color: #eff2f2;
   font-weight: 800;
 }
-.S_button:hover{
+/*.S_button:hover{
   background-color: #1938a7;
   width: 320px;
   height: 40px;
   transition: 0.5s;
-}
+}*/
 
 .login > div > img{
   display: grid;

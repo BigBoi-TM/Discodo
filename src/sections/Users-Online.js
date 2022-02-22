@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./Users-Online.css";
-import firebase from 'firebase';
+import firebase from "firebase";
 import { CSSTransition } from "react-transition-group";
 import ReactDOM from "react-dom";
 
-
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import UserChip from "./UserChip";
 import db, { auth, database } from "./firebase";
-import { selectUser } from "../data/data_components/userSlice";
+import { selectUser, selectOnline } from "../data/data_components/userSlice";
 import { useSelector } from "react-redux";
-
-
 
 const Users_Online = (props) => {
   const user = useSelector(selectUser);
+  const online = useSelector(selectOnline);
+  const userId = user.uid;
   const [users, setUsers] = useState([]);
+  useEffect(() => {
+    db.collection("Users").onSnapshot((snapshot) =>
+      setUsers(snapshot.docs.map((doc) => doc.data()))
+    );
+  }, []);
 
   const closeOnEscapeDown = (e) => {
     if ((e.charCode || e.keyCode) === 27) {
@@ -43,20 +47,19 @@ const Users_Online = (props) => {
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <h4 className="modal-title">Users Online:</h4>
-						<CloseIcon onClick={props.onClose} className="button"/>
+            <CloseIcon onClick={props.onClose} className="button" />
           </div>
           <div className="modal-body">
             {user ? (
               <>
-                  <UserChip
-                  photo={user.photo}
-                  displayName={user.displayName}/>
+                {users.map((user) => (
+                  <UserChip photo={user.photo} displayName={user.displayName} />
+                ))}
               </>
-            ):(
-                <p />
+            ) : (
+              <p />
             )}
-            
-					</div>
+          </div>
         </div>
       </div>
     </CSSTransition>,
