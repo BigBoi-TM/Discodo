@@ -11,6 +11,7 @@ import ChatHeader from "./ChatHeader";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import GifIcon from "@mui/icons-material/Gif";
+
 import {
   DiscordMessage,
   DiscordMessages,

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useCallback, useEffect, useState } from "react";
 import db, { database, auth } from "./firebase";
 import { useSelector } from "react-redux";
@@ -10,6 +11,8 @@ import {
   DiscordMessages,
   DiscordAttachment
 } from "@skyra/discord-components-react/dist/index.js";
+
+import { GithubSelector } from "@charkour/react-reactions";
 
 import Linkify from "react-linkify";
 
@@ -27,13 +30,13 @@ function Message({ timestamp, user, message,  }) {
     return (url.match(/^http[^\?]*.(jpg|jpeg|gif|png|tiff|bmp)(\?(.*))?$/gmi) != null);
   };
 
-  useCallback(useEffect(() => {
+  useEffect(() => {
     if (myRegex.test(message) === true){
       setImage(true);
     } else {
       setImage(false);
     }
-  }, [message, myRegex]));
+  }, [message, myRegex]);
   
 
   /*const messageRef = db
