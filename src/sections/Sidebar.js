@@ -3,6 +3,7 @@ import ReactTooltip from "react-tooltip";
 import "./Sidebar.css";
 import SidebarChannel from "./SidebarChannel.js";
 import SidebarVoiceChannel from "./SidebarVoiceChannel.js";
+import Settings from "./settings";
 import { getToken, createMeeting } from "./api";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -21,6 +22,9 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
+import { Avatar } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import Drawer from "@mui/material/Drawer";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
@@ -36,7 +40,6 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Avatar } from "@mui/material";
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../data/data_components/userSlice";
@@ -66,8 +69,11 @@ const AccordionSummary = styled((props) => (
 function Sidebar() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleSettingsOpen = () => setShowSettings(true);
+  const handleSettingsClose = () => setShowSettings(false);
   const user = useSelector(selectUser);
   const [channels, setChannels] = useState([]);
   const [typeChannel, setTypeChannel] = useState("Text Channel");
@@ -77,7 +83,7 @@ function Sidebar() {
   const channelType = useSelector(selectChannelType);
   const [token, setToken] = useState(null);
   const [meetingId, setMeetingId] = useState(null);
-  const userId = auth.currentUser.uid;
+  const userId = user.uid;
   const reference = database.ref(`/online/${userId}`);
   const dbReference = db.collection("Users").doc(`${userId}`);
   const isReadonly = () => {
@@ -100,10 +106,14 @@ function Sidebar() {
     transform: "translate(-50%, -50%)",
     height: 400,
     width: 300,
-    bgcolor: "background.paper",
+    color: "white",
+    bgcolor: "#353434",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4
+  };
+  const stackStyle = {
+    color: "white"
   };
   useEffect(() => {
     db.collection("channels")
@@ -178,7 +188,12 @@ function Sidebar() {
       >
         <Box sx={style}>
           <Stack>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography
+              id="modal-modal-title"
+              sx={{ color: "lightgrey" }}
+              variant="h6"
+              component="h2"
+            >
               Create Channel
             </Typography>
             <ToggleButtonGroup
@@ -188,15 +203,27 @@ function Sidebar() {
               onChange={handleTypeChannel}
               aria-label="text alignment"
             >
-              <ToggleButton value="Text Channel" aria-label="left aligned">
+              <ToggleButton
+                className="modal-button"
+                sx={{ color: "rgb(116, 116, 116)", textAlign: "left" }}
+                value="Text Channel"
+                aria-label="left aligned"
+              >
                 <TagIcon />
                 Text Channel
               </ToggleButton>
-              <ToggleButton value="Rules Channel" aria-label="centered">
+              <ToggleButton
+                className="modal-button"
+                sx={{ color: "rgb(116, 116, 116)" }}
+                value="Rules Channel"
+                aria-label="centered"
+              >
                 <LibraryBooksIcon />
                 Rules Channel
               </ToggleButton>
               <ToggleButton
+                className="modal-button"
+                sx={{ color: "rgb(116, 116, 116)" }}
                 value="Announcement Channel"
                 aria-label="right aligned"
               >
@@ -335,16 +362,7 @@ function Sidebar() {
           <div className="sidebar__profileIcons">
             <MicIcon className="MicIcon" />
             <HeadsetIcon className="HeadsetIcon" />
-            <ExitToAppIcon
-              data-tip="Click to logout"
-              data-type="dark"
-              data-delay-show="10"
-              data-effect="solid"
-              data-place="top"
-              data-effect="solid"
-              onClick={handleLogOut}
-              className="ExitToAppIcon"
-            />
+            <Settings />
             <ReactTooltip globalEventOff="click" />
           </div>
         </div>

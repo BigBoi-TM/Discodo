@@ -232,7 +232,7 @@ function JoinedSnackbar(displayName) {
   };
 
   const action = (
-    <React.Fragment>
+    <div>
       <Button color="secondary" size="small" onClick={handleClose}>
         UNDO
       </Button>
@@ -244,7 +244,7 @@ function JoinedSnackbar(displayName) {
       >
         <CloseIcon fontSize="small" />
       </IconButton>
-    </React.Fragment>
+    </div>
   );
 
   return (

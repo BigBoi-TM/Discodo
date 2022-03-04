@@ -42,11 +42,13 @@
   transition: 0.5s;
 }
 
-.channel-dropdown, .vchannel-dropdown{
+.channel-dropdown,
+.vchannel-dropdown {
   color: grey;
   transition: 0.5s;
 }
-.channel-dropdown:hover, .vchannel-dropdown:hover{
+.channel-dropdown:hover,
+.vchannel-dropdown:hover {
   color: white;
   transition: 0.5s;
 }
@@ -130,6 +132,7 @@
 
 .sidebar__profileIcons > .MuiSvgIcon-root {
   padding: 10px;
+  transition: 0.5s;
 }
 
 .sidebar__profileIcons > .MuiSvgIcon-root:hover {
@@ -138,8 +141,17 @@
   color: white;
 }
 
-.sidebar__profileIcons > .ExitToAppIcon:hover {
+.ExitToAppIcon {
+  padding: 10px;
+  transition: 0.5s;
+}
+.ExitToAppIcon:hover {
   cursor: pointer;
   transition: 0.5s;
-  color: red;
+  color: white;
+}
+
+.modal-button.Mui-selected {
+  transition: 0.5s;
+  color: white;
 }

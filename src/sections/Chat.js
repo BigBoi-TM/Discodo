@@ -1,10 +1,9 @@
+/* eslint-disable */
 import React, {
   useEffect,
   useCallback,
   useState,
-  useRef,
-  Component,
-  PropTypes
+  useRef
 } from "react";
 import "./Chat.css";
 import ChatHeader from "./ChatHeader";
@@ -31,12 +30,13 @@ import {
   selectReadOnly,
   selectChannelType,
 } from "../data/data_components/appSlice";
+import ShowcaseCardDemo from "./showcase";
 import db, { auth } from "./firebase";
 import firebase from "firebase";
 import Picker from "emoji-picker-react";
 import { emojify } from "react-emojione";
-import ReactMarkdown from "react-markdown";
-import { useAutocomplete } from "@mui/base/AutocompleteUnstyled";
+//import ReactMarkdown from "react-markdown";
+//import { useAutocomplete } from "@mui/base/AutocompleteUnstyled";
 
 import VideoChat from "./VC";
 
@@ -70,25 +70,26 @@ function Chat() {
     getOptionLabel: (option) => option.title,
   });*/
 
+  const handleInputChnage = (e) => {
+    setInput(e.target.value);
+  };
   const onEmojiClick = (event, emojiObject) => {
     setInput((prevInput) => prevInput + emojiObject.emoji);
     setShowPicker(false);
   };
 
-  const inputPlaceholder = useCallback(
-    useEffect(() => {
-      if (!channelId) {
-        setPlaceholder("Select a channel to begin");
-      }
-      if (readonly) {
-        setPlaceholder(
-          "You do not have permission to send messages in this channel"
-        );
-      } else {
-        setPlaceholder(`Message #${channelName}`);
-      }
-    }, [channelId, channelName, readonly])
-  );
+
+  useEffect(() => {
+    if (!channelId) {
+      setPlaceholder("Select a channel to begin");
+    } else if (readonly) {
+      setPlaceholder(
+        "You do not have permission to send messages in this channel"
+      );
+    } else {
+      setPlaceholder(`Message #${channelName}`);
+    }
+  }, [channelId, channelName, readonly]);
 
   useEffect(() => {
     if (channelId) {
@@ -151,15 +152,15 @@ function Chat() {
       ) : (
         <>
           <div className="chat__messages" ref={dummy}>
-            <DiscordMessages>
               {!channelId ? (
-                <DiscordSystemMessage>
-                  Select a channel to begin chatting!
-                </DiscordSystemMessage>
+                <ShowcaseCardDemo />
               ) : (
-                <DiscordSystemMessage>yeet</DiscordSystemMessage>
+                <DiscordMessages>
+                  <DiscordSystemMessage>
+                    yeet
+                  </DiscordSystemMessage>
+                </DiscordMessages>
               )}
-            </DiscordMessages>
 
             <p ref={dummy} />
             {messages.map((message) => (
@@ -188,7 +189,7 @@ function Chat() {
                 channelName={channelName}
                 disabled={!channelId || readonly}
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={handleInputChnage}
                 type="text"
                 className="chat-field"
                 placeholder={placeholder}

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, usePrevious } from "react";
 import db, { database, auth } from "./firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "../data/data_components/userSlice";
@@ -11,24 +11,18 @@ import {
   DiscordMessages,
   DiscordAttachment
 } from "@skyra/discord-components-react/dist/index.js";
-
-import { GithubSelector } from "@charkour/react-reactions";
+//import { GithubSelector } from "@charkour/react-reactions";
 
 import Linkify from "react-linkify";
 
 import "./Message.css";
 
-function Message({ timestamp, user, message,  }) {
+function Message({ user, message,  }) {
   const User = auth.currentUser;
   const u = useSelector(selectUser);
   const channelId = useSelector(selectChannelId);
-  const [image, setImage] = useState(true);
+  const [image, setImage] = useState(false);
   const myRegex = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|tiff|bmp))/i;
-
-  function checkURL(url) {
-    if (typeof url !== 'string') return false;
-    return (url.match(/^http[^\?]*.(jpg|jpeg|gif|png|tiff|bmp)(\?(.*))?$/gmi) != null);
-  };
 
   useEffect(() => {
     if (myRegex.test(message) === true){
@@ -36,7 +30,7 @@ function Message({ timestamp, user, message,  }) {
     } else {
       setImage(false);
     }
-  }, [message, myRegex]);
+  }, [message]);
   
 
   /*const messageRef = db
@@ -94,21 +88,17 @@ function Message({ timestamp, user, message,  }) {
   
 
   return (
-    <div className="message">
-      <DiscordMessages>
-        <DiscordMessage author={user.displayName} avatar={user.photo}>
-          {image ? (
-            <>
-              <DiscordAttachment slot="attachments" url={message} alt={message} />
-            </>
-          ) : (
-            <>
-              {message}
-            </>
-          )}
-        </DiscordMessage>
-      </DiscordMessages>
-    </div>
+    <DiscordMessages>
+      <DiscordMessage author={user.displayName} avatar={user.photo}>
+        {image ? (
+          <DiscordAttachment slot="attachments" url={message}/>
+        ) : (
+          <>
+            {message}
+          </>
+        )}
+      </DiscordMessage>
+    </DiscordMessages>
   );
 }
 
