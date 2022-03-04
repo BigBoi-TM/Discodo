@@ -21,6 +21,7 @@ function Message({ user, message,  }) {
   const User = auth.currentUser;
   const u = useSelector(selectUser);
   const channelId = useSelector(selectChannelId);
+  /*
   const [image, setImage] = useState(false);
   const myRegex = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|tiff|bmp))/i;
 
@@ -31,7 +32,7 @@ function Message({ user, message,  }) {
       setImage(false);
     }
   }, [message]);
-  
+  */
 
   /*const messageRef = db
     .collection("channels")
@@ -87,7 +88,7 @@ function Message({ user, message,  }) {
   
   
 
-  return (
+  /*return (
     <DiscordMessages>
       <DiscordMessage author={user.displayName} avatar={user.photo}>
         {image ? (
@@ -97,6 +98,15 @@ function Message({ user, message,  }) {
             {message}
           </>
         )}
+      </DiscordMessage>
+    </DiscordMessages>
+  );
+}*/
+
+return (
+    <DiscordMessages>
+      <DiscordMessage author={user.displayName} avatar={user.photo}>
+        <Linkify>{message}</Linkify>
       </DiscordMessage>
     </DiscordMessages>
   );
