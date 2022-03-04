@@ -58,11 +58,7 @@
     "react-tiger-transition": "4.1.2",
     "react-tooltip": "4.2.17",
     "react-transition-group": "4.4.1",
-    "redux": "^4.0.5",
-    "semantic-ui": "2.4.2",
-    "semantic-ui-embed": "2.3.1",
-    "semantic-ui-react": "2.1.2",
-    "use-effect-x": "0.1.5"
+    "redux": "^4.0.5"
   },
   "scripts": {
     "run": "react-scripts start",
