@@ -49,7 +49,6 @@ import {
   selectChannelType
 } from "../data/data_components/appSlice";
 import db, { auth, database } from "./firebase";
-import Profile from "./Profile";
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
@@ -67,7 +66,6 @@ const AccordionSummary = styled((props) => (
 }));
 
 function Sidebar() {
-  const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -150,10 +148,11 @@ function Sidebar() {
   };
 
   const handleAddChannel = () => {
+    const result = isReadonly();
     db.collection("channels").add({
       channelName: input,
       channelType: typeChannel,
-      readOnly: isReadonly
+      readOnly: result
     });
 
     setInput("");
@@ -358,7 +357,6 @@ function Sidebar() {
             <h3>{user.displayName}</h3>
             <p>#{user.uid.substring(0, 4)}</p>
           </div>
-          <Profile onClose={() => setShow(false)} show={show} />
           <div className="sidebar__profileIcons">
             <MicIcon className="MicIcon" />
             <HeadsetIcon className="HeadsetIcon" />

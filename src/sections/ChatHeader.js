@@ -42,15 +42,8 @@ function ChatHeader({ channelName }) {
           <SearchIcon className="SearchIcon" />
         </div>
         <SendIcon className="SendIcon" />
-        <HelpIcon
-          data-tip="Help"
-          data-type="info"
-          data-delay-show="1000"
-          data-place="bottom"
-          className="HelpIcon"
-          onClick={() => setOpen(true)}
-        />
-        <HelpModal onClose={handleClose} />
+        
+        <HelpModal />
         <ReactTooltip globalEventOff="click" />
       </div>
     </div>

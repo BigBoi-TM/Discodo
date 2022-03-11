@@ -1,15 +1,11 @@
 /* eslint-disable */
-import React, {
-  useEffect,
-  useCallback,
-  useState,
-  useRef
-} from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import "./Chat.css";
 import ChatHeader from "./ChatHeader";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import GifIcon from "@mui/icons-material/Gif";
+import Popover from "@mui/material/Popover";
 
 import {
   DiscordMessage,
@@ -28,13 +24,20 @@ import {
   selectChannelName,
   selectVoiceChannel,
   selectReadOnly,
-  selectChannelType,
+  selectChannelType
 } from "../data/data_components/appSlice";
 import ShowcaseCardDemo from "./showcase";
 import db, { auth } from "./firebase";
 import firebase from "firebase";
+import Typography from "@mui/material/Typography";
 import Picker from "emoji-picker-react";
 import { emojify } from "react-emojione";
+import {
+  ImageTooltips,
+  ImageTooltipsItem,
+  ImageTooltipsTrigger
+} from "react-image-tooltips";
+
 //import ReactMarkdown from "react-markdown";
 //import { useAutocomplete } from "@mui/base/AutocompleteUnstyled";
 
@@ -52,6 +55,7 @@ function Chat() {
   const [input, setInput] = useState("");
   const readonly = useSelector(selectReadOnly);
   const [messages, setMessages] = useState([]);
+  const [placement, setPlacement] = useState(null);
   const [showPicker, setShowPicker] = useState(false);
   const dummy = useRef();
   /*const options = [
@@ -69,6 +73,15 @@ function Chat() {
     options: options,
     getOptionLabel: (option) => option.title,
   });*/
+  const handleShowPicker = (event) => {
+    setPlacement(event.currentTarget);
+    setShowPicker(true);
+  };
+  const handleClose = () => {
+    setPlacement(null);
+    setShowPicker(false);
+  };
+  const open = Boolean(showPicker);
 
   const handleInputChnage = (e) => {
     setInput(e.target.value);
@@ -78,6 +91,7 @@ function Chat() {
     setShowPicker(false);
   };
 
+  //const picker = <Picker className="Picker" pickerStyle={{ width: "50%" }} onEmojiClick={onEmojiClick}/>;
 
   useEffect(() => {
     if (!channelId) {
@@ -152,15 +166,13 @@ function Chat() {
       ) : (
         <>
           <div className="chat__messages" ref={dummy}>
-              {!channelId ? (
-                <ShowcaseCardDemo />
-              ) : (
-                <DiscordMessages>
-                  <DiscordSystemMessage>
-                    yeet
-                  </DiscordSystemMessage>
-                </DiscordMessages>
-              )}
+            {!channelId ? (
+              <ShowcaseCardDemo />
+            ) : (
+              <DiscordMessages>
+                <DiscordSystemMessage>yeet</DiscordSystemMessage>
+              </DiscordMessages>
+            )}
 
             <p ref={dummy} />
             {messages.map((message) => (
@@ -171,18 +183,13 @@ function Chat() {
               />
             ))}
           </div>
-          {showPicker && (
-            <Picker
-              className="Picker"
-              pickerStyle={{ width: "50%" }}
-              onEmojiClick={onEmojiClick}
-            />
-          )}
+
           <div className="chat__input">
             <AddCircleIcon
               className="AddCircleIcon"
               fontSize="large"
-              onClick={handlePlus}
+              disabled={true}
+              //onClick={handlePlus}
             />
             <form>
               <input
@@ -205,13 +212,37 @@ function Chat() {
             </form>
 
             <div class="chat__inputIcons">
-              <GifIcon fontSize="large" />
+              <GifIcon fontSize="large" disabled={true}/>
+              <Popover
+                className="Picker"
+                open={open}
+                anchorEl={placement}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+              >
+                <Typography sx={{ p: 2 }}>
+                  <Picker
+                    pickerStyle={{ width: "100%" }}
+                    onEmojiClick={onEmojiClick}
+                  />
+                </Typography>
+              </Popover>
               <EmojiEmotionsIcon
                 className="emoji_picker"
                 fontSize="large"
-                onClick={() => setShowPicker(true)}
+                data-tip="Emoji"
+                data-effect="solid"
+                data-place="top"
+                onClick={handleShowPicker}
               />
-              <ReactTooltip globalEventOff="click" insecure={true} />
+              <ReactTooltip globalEventOff="click" />
             </div>
           </div>
         </>

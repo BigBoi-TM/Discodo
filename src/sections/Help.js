@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import "./ChatHeader.css";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -8,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import HelpIcon from "@mui/icons-material/Help";
+import ReactTooltip from "react-tooltip";
 
 const style = {
   position: "absolute",
@@ -22,14 +25,23 @@ const style = {
 };
 
 function HelpModal() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   return (
     <div>
+      <HelpIcon
+        onClick={() => setOpenModal(true)}
+        data-tip="Help"
+        data-type="dark"
+        data-delay-show="10"
+        data-effect="solid"
+        data-place="bottom"
+        className="HelpIcon"
+      />
       <Modal
-        open={open}
+        open={openModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -52,8 +64,9 @@ function HelpModal() {
           </Accordion>
         </Box>
       </Modal>
+      <ReactTooltip globalEventOff="click"/>
     </div>
   );
-}
+};
 
 export default HelpModal;

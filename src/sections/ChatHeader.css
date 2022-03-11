@@ -12,7 +12,9 @@
 .chatHeader__hash{
   color: gray;
   font-size: 30px;
-  padding: 10px;
+  padding-top:10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 
 .chatHeader__left > h3{
@@ -31,8 +33,18 @@
 .chatHeader__right > .MuiSvgIcon-root{
   padding: 5px;
   cursor: pointer;
+  transition: 0.3s;
 }
+.HelpIcon{
+  padding: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.HelpIcon:hover{
+  color: white;
+  transition: 0.3s;
 
+}
 .chatHeader__right > .MuiSvgIcon-root:hover{
   color: white;
   transition: 0.3s;

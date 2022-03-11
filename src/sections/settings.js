@@ -28,7 +28,7 @@ import ReactTooltip from "react-tooltip";
 import db, { auth, database } from "./firebase";
 
 import Loggedout from "./Snackbars/Loggedout";
-import ProfilePage from "./profile";
+import ProfilePage from "./Setting-Pages/profile";
 import "./Sidebar.css";
 
 const Transition = forwardRef(function Transition(props, ref) {
@@ -38,7 +38,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 export default function Settings() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState("Account");
+  const [page, setPage] = useState(<ProfilePage />);
 
   const drawerWidth = 190;
 
@@ -116,49 +116,51 @@ export default function Settings() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
+        <div className="Drawer">
+          <Drawer
+            /*sx={{
               width: drawerWidth,
-              boxSizing: "border-box"
-            }
-          }}
-          variant="permanent"
-        >
-          <Toolbar />
-          <Box>
-            <ToggleButtonGroup
-              value={page}
-              orientation="vertical"
-              exclusive
-              onChange={handlePage}
-              aria-label="text alignment"
-              //edge="start"
-              sx={{ display: "flex" }}
-            >
-              <ToggleButton
-                //className="modal-button"
-                sx={{ color: "rgb(116, 116, 116)" }}
-                value="Rules Channel"
-                aria-label="centered"
+              flexShrink: 0,
+              "& .MuiDrawer-paper": {
+                width: drawerWidth,
+                boxSizing: "border-box"
+              }
+            }}*/
+            variant="permanent"
+          >
+            <Toolbar />
+            <Box>
+              <ToggleButtonGroup
+                value={page}
+                orientation="vertical"
+                exclusive
+                onChange={handlePage}
+                aria-label="text alignment"
+                //edge="start"
+                sx={{ display: "flex" }}
               >
-                <AccountBoxIcon />
-                Account
-              </ToggleButton>
-              <ToggleButton
-                //className="modal-button"
-                sx={{ color: "rgb(116, 116, 116)" }}
-                value="Rules Channel"
-                aria-label="centered"
-                onClick={handleLogOut}
-              >
-                <Loggedout />
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Box>
-        </Drawer>
+                <ToggleButton
+                  //className="modal-button"
+                  sx={{ color: "rgb(116, 116, 116)" }}
+                  value={<ProfilePage />}
+                  aria-label="centered"
+                >
+                  <AccountBoxIcon />
+                  Account
+                </ToggleButton>
+                <ToggleButton
+                  //className="modal-button"
+                  sx={{ color: "rgb(116, 116, 116)" }}
+                  aria-label="centered"
+                  onClick={handleLogOut}
+                >
+                  <Loggedout />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Box>
+          </Drawer>
+        </div>
+        <div className="Page">{page}</div>
       </Dialog>
     </div>
   );

@@ -10,10 +10,10 @@
   color: lightgray;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 15px;
+  justify-content: space-around;
+  padding: 5px;
   border-radius: 5px;
-  margin: 20px;
+  margin: 5px;
   border-top: 1px solid gray;
   background-color: #474b53;
 }
@@ -44,10 +44,10 @@
   padding: 15px;
   background: transparent;
   border: none;
-  width: 300px;
+  display: flex;
   outline-width: 0;
   color: white;
-  font-size: large;
+  font-size: 70%;
 }
 
 .chat__input > form {
@@ -83,4 +83,10 @@
   padding-left: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.Picker {
+  display: flex;
+  padding-bottom: 12px;
+  width: 70%;
 }
