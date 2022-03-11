@@ -1,7 +1,6 @@
 {
   "name": "discodo",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@charkour/react-reactions": "0.6.1",
     "@emotion/react": "11.7.1",
@@ -73,11 +72,7 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
