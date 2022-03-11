@@ -352,7 +352,7 @@ function Sidebar() {
           </div>
         </div>
         <div className="sidebar__profile">
-          <Avatar src={user.photo} onClick={() => setShow(true)} />
+          <Avatar src={user.photo} />
           <div className="sidebar__profileInfo">
             <h3>{user.displayName}</h3>
             <p>#{user.uid.substring(0, 4)}</p>
