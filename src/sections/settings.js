@@ -13,6 +13,9 @@ import Divider from "@mui/material/Divider";
 import CssBaseline from "@mui/material/CssBaseline";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import DialogActions from "@mui/material/DialogActions";
+import { useGrowIconButtonStyles } from "@mui-treasury/styles/iconButton/grow";
+import { useRowFlexStyles } from "@mui-treasury/styles/flex/row";
 
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -39,6 +42,8 @@ export default function Settings() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(<ProfilePage />);
+  const defaultGrowStyles = useGrowIconButtonStyles();
+  const flexStyles = useRowFlexStyles();
 
   const drawerWidth = 190;
 
@@ -95,41 +100,20 @@ export default function Settings() {
         TransitionComponent={Transition}
       >
         <CssBaseline />
-        <AppBar
-          sx={{
-            position: "fixed",
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            bgcolor: "#2f3135"
-          }}
-        >
-          <Toolbar>
-            <Typography variant="h6" noWrap component="div">
-              Settings
-            </Typography>
-            <IconButton
-              edge="end"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <div className="Drawer">
+        <Box sx={{ display: "flex", flex: 0.25, height: "100vh" }}>
           <Drawer
-            /*sx={{
+            /* sx={{
               width: drawerWidth,
-              flexShrink: 0,
               "& .MuiDrawer-paper": {
                 width: drawerWidth,
-                boxSizing: "border-box"
+                boxSizing: "border-box",
+                backgroundColor: "#2f3135"
               }
-            }}*/
+            }} */
             variant="permanent"
           >
-            <Toolbar />
             <Box>
+              USER SETTINGS
               <ToggleButtonGroup
                 value={page}
                 orientation="vertical"
@@ -159,8 +143,19 @@ export default function Settings() {
               </ToggleButtonGroup>
             </Box>
           </Drawer>
-        </div>
-        <div className="Page">{page}</div>
+        </Box>
+        <Box
+          component="main"
+          sx={{
+            display: "flex",
+            flex: 0.75,
+            height: "100vh",
+            textAlign: "center",
+            color: "white"
+          }}
+        >
+          <h1>hi</h1>
+        </Box>
       </Dialog>
     </div>
   );

@@ -7,6 +7,8 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import "pusher";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+
 const Pusher = require("pusher");
 
 const pusher = new Pusher({
@@ -16,11 +18,18 @@ const pusher = new Pusher({
   cluster: "mt1",
   useTLS: true
 });
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark"
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={darkTheme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

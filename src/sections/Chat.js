@@ -6,6 +6,10 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import GifIcon from "@mui/icons-material/Gif";
 import Popover from "@mui/material/Popover";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { DiscordEmojiButton } from "discord-emoji-button";
+import { Hint } from "react-autocomplete-hint";
+import axios from "axios";
 
 import {
   DiscordMessage,
@@ -30,13 +34,9 @@ import ShowcaseCardDemo from "./showcase";
 import db, { auth } from "./firebase";
 import firebase from "firebase";
 import Typography from "@mui/material/Typography";
-import Picker from "emoji-picker-react";
-import { emojify } from "react-emojione";
-import {
-  ImageTooltips,
-  ImageTooltipsItem,
-  ImageTooltipsTrigger
-} from "react-image-tooltips";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
+import IconButton from "@mui/material/IconButton";
 
 //import ReactMarkdown from "react-markdown";
 //import { useAutocomplete } from "@mui/base/AutocompleteUnstyled";
@@ -56,6 +56,8 @@ function Chat() {
   const readonly = useSelector(selectReadOnly);
   const [messages, setMessages] = useState([]);
   const [placement, setPlacement] = useState(null);
+  const [eplacement, setEplacement] = useState(null);
+  const [showE, setShowE] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const dummy = useRef();
   /*const options = [
@@ -73,6 +75,7 @@ function Chat() {
     options: options,
     getOptionLabel: (option) => option.title,
   });*/
+
   const handleShowPicker = (event) => {
     setPlacement(event.currentTarget);
     setShowPicker(true);
@@ -86,8 +89,8 @@ function Chat() {
   const handleInputChnage = (e) => {
     setInput(e.target.value);
   };
-  const onEmojiClick = (event, emojiObject) => {
-    setInput((prevInput) => prevInput + emojiObject.emoji);
+  const onEmojiClick = (emoji) => {
+    setInput((prevInput) => prevInput + emoji.native);
     setShowPicker(false);
   };
 
@@ -170,15 +173,17 @@ function Chat() {
               <ShowcaseCardDemo />
             ) : (
               <DiscordMessages>
-                <DiscordSystemMessage>yeet</DiscordSystemMessage>
+                <DiscordSystemMessage>
+                  This is the begining of the chat.
+                </DiscordSystemMessage>
               </DiscordMessages>
             )}
 
             <p ref={dummy} />
             {messages.map((message) => (
               <Message
-                //timestamp={message.timestamp}
-                message={emojify(message.message)}
+                timestamp={message.timestamp}
+                message={message.message}
                 user={message.user}
               />
             ))}
@@ -212,7 +217,7 @@ function Chat() {
             </form>
 
             <div class="chat__inputIcons">
-              <GifIcon fontSize="large" disabled={true}/>
+              <GifIcon fontSize="large" disabled={true} />
               <Popover
                 className="Picker"
                 open={open}
@@ -226,20 +231,26 @@ function Chat() {
                   vertical: "top",
                   horizontal: "right"
                 }}
+                sx={{ padding: 1, textAlign: "center" }}
               >
                 <Typography sx={{ p: 2 }}>
                   <Picker
-                    pickerStyle={{ width: "100%" }}
-                    onEmojiClick={onEmojiClick}
+                    //pickerStyle={{ width: "100%" }}
+                    theme="dark"
+                    autoFocus={true}
+                    //emojiTooltip={true}
+                    title="Select an emoji"
+                    emoji="point_up_2"
+                    set="twitter"
+                    theme="dark"
+                    onSelect={onEmojiClick}
                   />
                 </Typography>
               </Popover>
-              <EmojiEmotionsIcon
+              <DiscordEmojiButton
                 className="emoji_picker"
-                fontSize="large"
-                data-tip="Emoji"
-                data-effect="solid"
-                data-place="top"
+                size={28}
+                set="twitter"
                 onClick={handleShowPicker}
               />
               <ReactTooltip globalEventOff="click" />

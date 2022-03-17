@@ -155,14 +155,20 @@
   transition: 0.5s;
   color: white;
 }
-
+/*
 .Drawer{
   display: flex;
   flex-direction: column;
   flex: 0.25;
+  background-color: #2f3135;
 }
-.Page{
+*/
+
+.content {
   display: flex;
   flex-direction: column;
   flex: 0.75;
+  background-color: #363a3f;
+  height: 100vh;
+  align-items: center;
 }

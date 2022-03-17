@@ -1,9 +1,10 @@
-/*
 .message {
   display: flex;
+  width: 400px;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   color: white;
+  transition: 0.3s;
 }
 .message:hover{
   background-color: rgb(53, 53, 53);
@@ -11,21 +12,55 @@
 } 
 
 .message__info {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .message__timestamp {
   color: gray;
-  margin-left: 20px;
+  margin-left: 10px;
   font-size: x-small;
 }
-.message__deleteButton {
+
+.avatar:hover{
+  cursor: pointer;
+}
+
+.displayName:hover{
+  cursor: pointer;
+}
+
+.susername{
+  height: 20px;
+  width: 102px;
+}
+.stimestamp{
+  margin-left: 6px;
+  height: 13px;
+  width: 67px;
+}
+
+.smessage{
+  margin-left: 61px;
+  height: 15px;
+  width: 330px;
+}
+
+.smessage2{
+  margin-left: 61px;
+  margin-top: 0px;
+  height: 15px;
+}
+/* .message__deleteButton {
   display: none;
 }
 .messege__uid {
   display: none;
-}
-*/
-.attachment{
+} */
+
+/* .attachment{
   display: none;
 }
+.discord-author-username:hover,
+.discord-author-avatar>img:hover{
+  cursor: pointer;
+} */

@@ -11,6 +11,10 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import HelpIcon from "@mui/icons-material/Help";
 import ReactTooltip from "react-tooltip";
+import Divider from "@mui/material/Divider";
+import Update from "./Changelogs/Emoji-Update";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 
 const style = {
   position: "absolute",
@@ -18,8 +22,10 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
+  height: 300,
   bgcolor: "background.paper",
   border: "2px solid #000",
+  overflow: "auto",
   boxShadow: 24,
   p: 4
 };
@@ -47,26 +53,48 @@ function HelpModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Help
-          </Typography>
+          <AppBar position="fixed">
+            <Toolbar>
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                sx={{ color: "white", paddingBottom: "20px" }}
+              >
+                Help
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Toolbar />
+          <Accordion sx={{ overflow: "auto" }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>Introduction</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>W.I.P.</Typography>
+            </AccordionDetails>
+          </Accordion>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>Intro</Typography>
+              <Typography>Changelog</Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              <Typography>howdyy</Typography>
+            <Divider />
+            <AccordionDetails sx={{ textAlign: "left" }}>
+              <Update />
             </AccordionDetails>
           </Accordion>
         </Box>
       </Modal>
-      <ReactTooltip globalEventOff="click"/>
+      <ReactTooltip globalEventOff="click" />
     </div>
   );
-};
+}
 
 export default HelpModal;

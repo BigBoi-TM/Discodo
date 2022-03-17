@@ -7,6 +7,8 @@ import Settings from "./settings";
 import { getToken, createMeeting } from "./api";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
+import { Draggable } from "react-drag-reorder";
+
 import { styled } from "@mui/material/styles";
 import Accordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -23,9 +25,12 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { Avatar } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
-import Drawer from "@mui/material/Drawer";
-
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
@@ -91,10 +96,8 @@ function Sidebar() {
       return false;
     }
   };
-  const handleTypeChannel = (event, newTypeChannel) => {
-    if (newTypeChannel !== null) {
-      setTypeChannel(newTypeChannel);
-    }
+  const handleTypeChannel = (event) => {
+    setTypeChannel(event.target.value);
   };
 
   const style = {
@@ -111,7 +114,8 @@ function Sidebar() {
     p: 4
   };
   const stackStyle = {
-    color: "white"
+    color: "white",
+    align: "left"
   };
   useEffect(() => {
     db.collection("channels")
@@ -146,7 +150,9 @@ function Sidebar() {
     dbReference.delete();
     auth.signOut();
   };
-
+  const getChangedPos = (currentPos, newPos) => {
+    console.log(currentPos, newPos);
+  };
   const handleAddChannel = () => {
     const result = isReadonly();
     db.collection("channels").add({
@@ -156,6 +162,7 @@ function Sidebar() {
     });
 
     setInput("");
+    setTypeChannel("Text Channel");
     setOpen(false);
   };
 
@@ -179,71 +186,63 @@ function Sidebar() {
 
   return (
     <>
-      <Modal
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Stack>
-            <Typography
-              id="modal-modal-title"
-              sx={{ color: "lightgrey" }}
-              variant="h6"
-              component="h2"
+        <DialogTitle sx={{ color: "lightgrey" }}>Create Channel</DialogTitle>
+        <DialogContent>
+          <ToggleButtonGroup
+            value={typeChannel}
+            orientation="vertical"
+            exclusive
+            onChange={handleTypeChannel}
+          >
+            <ToggleButton
+              className="modal-button"
+              sx={{ color: "rgb(116, 116, 116)", textAlign: "left" }}
+              value="Text Channel"
             >
-              Create Channel
-            </Typography>
-            <ToggleButtonGroup
-              value={typeChannel}
-              orientation="vertical"
-              exclusive
-              onChange={handleTypeChannel}
-              aria-label="text alignment"
+              <TagIcon />
+              Text Channel
+            </ToggleButton>
+
+            <ToggleButton
+              className="modal-button"
+              sx={{ color: "rgb(116, 116, 116)" }}
+              value="Rules Channel"
             >
-              <ToggleButton
-                className="modal-button"
-                sx={{ color: "rgb(116, 116, 116)", textAlign: "left" }}
-                value="Text Channel"
-                aria-label="left aligned"
-              >
-                <TagIcon />
-                Text Channel
-              </ToggleButton>
-              <ToggleButton
-                className="modal-button"
-                sx={{ color: "rgb(116, 116, 116)" }}
-                value="Rules Channel"
-                aria-label="centered"
-              >
-                <LibraryBooksIcon />
-                Rules Channel
-              </ToggleButton>
-              <ToggleButton
-                className="modal-button"
-                sx={{ color: "rgb(116, 116, 116)" }}
-                value="Announcement Channel"
-                aria-label="right aligned"
-              >
-                <CampaignIcon />
-                Announcement Channel
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Stack>
-          <Input
-            placeholder="new-channel"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
+              <LibraryBooksIcon />
+              Rules Channel
+            </ToggleButton>
+            <ToggleButton
+              className="modal-button"
+              sx={{ color: "rgb(116, 116, 116)" }}
+              value="Announcement Channel"
+            >
+              <CampaignIcon />
+              Announcement Channel
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </DialogContent>
+        <Input
+          placeholder="new-channel"
+          value={input}
+          onChange={(e) =>
+            setInput(e.target.value.toLowerCase().replace(/ /g, "-"))
+          }
+        />
+        <DialogActions>
           <ButtonGroup>
             <Button onClick={handleClose}>Cancel</Button>
             <Button disabled={!input} type="submit" onClick={handleAddChannel}>
               Create Channel
             </Button>
           </ButtonGroup>
-        </Box>
-      </Modal>
+        </DialogActions>
+      </Dialog>
       <div className="sidebar">
         <div className="sidebar__top">
           <h3>Discodo</h3>
