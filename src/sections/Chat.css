@@ -59,14 +59,14 @@
 .chat__inputButton {
   display: none;
 }
-.emoji_picker{
+.emoji_picker {
   padding: 4px;
   /* padding-bottom: 20px; */
 }
 .chat__inputIcons > .MuiSvgIcon-root {
   padding: 5px;
 }
-.chat__inputIcons{
+.chat__inputIcons {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -101,5 +101,5 @@
   align-items: center;
   padding-bottom: 12px;
   width: 70%;
-  margin: 0;p
+  margin: 0;
 }
