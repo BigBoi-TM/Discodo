@@ -250,7 +250,7 @@ function Chat() {
                 disabled={!channelId || readonly}
                 value={input}
                 onChange={handleInputChnage}
-                type="button"
+                type="text"
                 className="chat-field"
                 placeholder={placeholder}
               />
@@ -258,7 +258,7 @@ function Chat() {
                 className="chat__inputButton"
                 type="submit"
                 disabled={!channelId || readonly || !input}
-                onClick={sendMessage}
+                // onClick={sendMessage}
               >
                 Send Message
               </button>

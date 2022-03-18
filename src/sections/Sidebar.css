@@ -133,6 +133,7 @@
 .sidebar__profileIcons > .MuiSvgIcon-root {
   padding: 10px;
   transition: 0.5s;
+  display: none;
 }
 
 .sidebar__profileIcons > .MuiSvgIcon-root:hover {
