@@ -10,6 +10,14 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { DiscordEmojiButton } from "discord-emoji-button";
 import { Hint } from "react-autocomplete-hint";
 import axios from "axios";
+import {
+  fetchFromCDN,
+  fetchEmojis,
+  fetchMessages,
+  fetchShortcodes
+} from "emojibase";
+import data from "emojibase-data/en/shortcodes/cldr-native.json";
+import ReactTextareaAutocomplete from "@webscopeio/react-textarea-autocomplete";
 
 import {
   DiscordMessage,
@@ -37,6 +45,7 @@ import Typography from "@mui/material/Typography";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 import IconButton from "@mui/material/IconButton";
+import emoji from "@jukben/emoji-search";
 
 //import ReactMarkdown from "react-markdown";
 //import { useAutocomplete } from "@mui/base/AutocompleteUnstyled";
@@ -60,6 +69,8 @@ function Chat() {
   const [showE, setShowE] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const dummy = useRef();
+  const shortcodes = fetchFromCDN("en/shortcodes/joypixels.json");
+  const [hintData, setHintData] = useState([":tada:", ":joy:"]);
   /*const options = [
     
   ]
@@ -132,8 +143,11 @@ function Chat() {
       .doc(`${uid}`)
       .set(info)
       .then(() => console.log("Set information successfully!"));*/
-    alert(channelId);
+    console.log(hintData);
   };
+  const Item = ({ entity: { name, char } }) => (
+    <div className="emoji-list">{`${char} :${name}: `}</div>
+  );
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -193,16 +207,50 @@ function Chat() {
             <AddCircleIcon
               className="AddCircleIcon"
               fontSize="large"
-              disabled={true}
-              //onClick={handlePlus}
+              // disabled={true}
+              onClick={handlePlus}
             />
-            <form>
+            <form
+            /* onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  sendMessage(e);
+                }
+              }} */
+            >
+              {/* <ReactTextareaAutocomplete
+                loadingComponent={() => <span>Loading</span>}
+                trigger={{
+                  ":": {
+                    dataProvider: (token) => {
+                      return emoji(token)
+                        .slice(0, 5)
+                        .map(({ name, char }) => ({ name, char }));
+                    },
+                    component: Item,
+                    output: (item, trigger) => item.char
+                  }
+                }}
+                style={{
+                  fontSize: "18px",
+                  lineHeight: "20px",
+                  padding: 5
+                }}
+                channelName={channelName}
+                disabled={!channelId || readonly}
+                value={input}
+                onChange={handleInputChnage}
+                type="button"
+                // dropdownStyle={{ overflow: "auto" }}
+                // onSubmit={sendMessage}
+                className="chat-field"
+                placeholder={placeholder}
+              /> */}
               <input
                 channelName={channelName}
                 disabled={!channelId || readonly}
                 value={input}
                 onChange={handleInputChnage}
-                type="text"
+                type="button"
                 className="chat-field"
                 placeholder={placeholder}
               />
