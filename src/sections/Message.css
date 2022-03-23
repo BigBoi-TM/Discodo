@@ -11,6 +11,9 @@
   transition: 0.3s;
 } 
 
+.mvideo {
+  max-with: 200px;
+}
 .message__info {
   margin-left: 10px;
 }

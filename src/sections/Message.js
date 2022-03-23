@@ -4,18 +4,23 @@ import db, { database, auth } from "./firebase";
 import { useSelector } from "react-redux";
 import { selectUser } from "../data/data_components/userSlice";
 import { selectChannelId } from "../data/data_components/appSlice";
-import Button from "@mui/material/Button";
+import {
+  Button,
+  Box,
+  Card,
+  CardContent,
+  Avatar,
+  Divider,
+  Popover,
+  Skeleton,
+  Typography
+} from "@mui/material";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import ResizeImage from "react-resize-image";
 import cx from "clsx";
 import { makeStyles } from "@mui/styles";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import { useFadedShadowStyles } from "@mui-treasury/styles/shadow/faded";
 import { useGutterBorderedGridStyles } from "@mui-treasury/styles/grid/gutterBordered";
-import Popover from "@mui/material/Popover";
-import Skeleton from "@mui/material/Skeleton";
 
 import {
   DiscordMessage,
@@ -69,7 +74,7 @@ const useStyles = makeStyles(({ palette }) => ({
   }
 }));
 
-function Message({ user, message, timestamp }) {
+function Message({ user, message, messageType, file }) {
   const User = auth.currentUser;
   const u = useSelector(selectUser);
   const channelId = useSelector(selectChannelId);
@@ -77,7 +82,6 @@ function Message({ user, message, timestamp }) {
   const [eplacement, setEplacement] = useState(null);
   const [emoji, setEmoji] = useState();
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     setLoading(false);
   }, []);
@@ -121,6 +125,35 @@ function Message({ user, message, timestamp }) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const Output = () => {
+    if (messageType === "Message") {
+      return (
+        <Emojify style={{ height: 32, width: 32 }} onClick={handleEmOpen}>
+          <Linkify>{message}</Linkify>
+        </Emojify>
+      );
+    } else if (messageType === "Image") {
+      return (
+        <ResizeImage
+          src={message}
+          alt="img"
+          resizeActive={true}
+          options={{ width: 100 }}
+        />
+      );
+    } else if (messageType === "Video") {
+      return <video src={message} controls className="mvideo" />;
+    } else if (messageType === "Audio") {
+      return (
+        <Typography>
+          <audio src={message} controls />
+          {/* <a href={message} download={file}>
+            <FileDownloadIcon fontSize="large" sx={{ color: "white", paddingBottom: 1 }} />
+          </a> */}
+        </Typography>
+      );
+    }
+  };
   /*
   const [image, setImage] = useState(false);
   const myRegex = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|tiff|bmp))/i;
@@ -286,9 +319,7 @@ function Message({ user, message, timestamp }) {
       ) : (
         <DiscordMessages>
           <DiscordMessage author={user.displayName} avatar={user.photo}>
-            <Emojify style={{ height: 32, width: 32 }} onClick={handleEmOpen}>
-              <Linkify>{message}</Linkify>
-            </Emojify>
+            {Output()}
           </DiscordMessage>
         </DiscordMessages>
       )}

@@ -5,7 +5,9 @@
   background-color: #363a3f;
   height: 100vh;
 }
-
+.d-d{
+  display: none;
+}
 .chat__input {
   
   color: lightgray;
