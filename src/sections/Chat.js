@@ -578,6 +578,7 @@ function Chat() {
               onClick={handleFClick}
             />
             <form
+              className="input-form"
             /* onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   sendMessage(e);

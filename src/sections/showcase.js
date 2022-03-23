@@ -1,145 +1,146 @@
 import React from "react";
-import { makeStyles, withStyles } from "@mui/styles";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
-import Avatar from "@mui/material/Avatar";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setChannelInfo,
+  selectChannelType,
+  selectReadOnly
+} from "../data/data_components/appSlice";
+import cx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import CallMade from "@mui/icons-material/CallMade";
+import TextInfoContent from "@mui-treasury/components/content/textInfo";
+import { useBlogTextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/blog";
+import { useOverShadowStyles } from "@mui-treasury/styles/shadow/over";
+import {
+  DiscordActionRow,
+  DiscordAttachment,
+  DiscordAttachments,
+  DiscordButton,
+  DiscordCommand,
+  DiscordEmbed,
+  DiscordEmbedField,
+  DiscordEmbedFields,
+  DiscordEmbedDescription,
+  DiscordEmbedFooter,
+  DiscordInvite,
+  DiscordMention,
+  DiscordMessage,
+  DiscordMessages,
+  DiscordReaction,
+  DiscordReactions,
+  DiscordReply,
+  DiscordSystemMessage,
+  DiscordTenorVideo,
+  DiscordThread,
+  DiscordThreadMessage
+} from "@skyra/discord-components-react/dist/index.js";
+import Emojify from "react-emojione";
 
-import { Row, Column, Item } from "@mui-treasury/components/flex";
-import { useSizedIconButtonStyles } from "@mui-treasury/styles/iconButton/sized";
-
-const StyledTooltip = withStyles({
-  tooltip: {
-    marginTop: "0.2rem",
-    backgroundColor: "rgba(0,0,0,0.72)",
-    color: "#fff"
-  }
-})(Tooltip);
-
-const useBasicProfileStyles = makeStyles(({ palette }) => ({
-  avatar: {
-    borderRadius: 8,
-    backgroundColor: "#495869"
-  },
-  overline: {
-    fontSize: 10,
-    textTransform: "uppercase",
-    letterSpacing: 1,
-    color: "#8D9CAD"
-  },
-  name: {
-    fontSize: 14,
-    fontWeight: 500,
-    color: "#495869"
-  }
-}));
-
-const BasicProfile = (props) => {
-  const styles = useBasicProfileStyles();
-  return (
-    <Row {...props}>
-      <Item>
-        <Avatar className={styles.avatar}>B</Avatar>
-      </Item>
-      <Item position={"middle"} pl={{ sm: 0.5, lg: 0.5 }}>
-        <Typography className={styles.overline}>CREATOR</Typography>
-        <Typography className={styles.name}>BigBoi335</Typography>
-      </Item>
-    </Row>
-  );
-};
-
-const useCardHeaderStyles = makeStyles(() => ({
-  root: { paddingBottom: 0 },
-  title: {
-    fontSize: "1.25rem",
-    color: "#122740"
-  },
-  subheader: {
-    fontSize: "0.875rem",
-    color: "#495869"
-  }
-}));
-
-const CardHeader = (props) => {
-  const styles = useCardHeaderStyles();
-  const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20 });
-  return (
-    <Row {...props}>
-      <Item position={"middle"}>
-        <Typography className={styles.title}>
-          <b>Discodo</b>
-        </Typography>
-        <Typography className={styles.subheader}>
-          Similar to Discord theme
-        </Typography>
-      </Item>
-    </Row>
-  );
-};
-
-const Card2Header = (props) => {
-  const styles = useCardHeaderStyles();
-  const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20 });
-  return (
-    <Row {...props}>
-      <Item position={"middle"}>
-        <Typography className={styles.title}>
-          <b></b>
-        </Typography>
-        <Typography className={styles.subheader}>
-          Similar to Discord theme
-        </Typography>
-      </Item>
-    </Row>
-  );
-};
-const useStyles = makeStyles(() => ({
-  card: {
-    border: "2px solid",
-    borderColor: "#E7EDF3",
-    backgroundColor: "#6D7C8C",
-    borderRadius: 16,
-    transition: "0.4s",
-    "&:hover": {
-      borderColor: "#5B9FED"
+const useStyles = makeStyles(({ breakpoints, spacing }) => ({
+  root: {
+    margin: "auto",
+    borderRadius: spacing(2), // 16px
+    transition: "0.3s",
+    boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
+    position: "relative",
+    maxWidth: 300,
+    marginLeft: "auto",
+    overflow: "initial",
+    background: "#36393e",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingBottom: spacing(2),
+    [breakpoints.up("md")]: {
+      flexDirection: "row",
+      paddingTop: spacing(2)
     }
+  },
+  media: {
+    width: "88%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: spacing(-3),
+    height: 0,
+    paddingBottom: "48%",
+    borderRadius: spacing(2),
+    backgroundColor: "#fff",
+    position: "relative",
+    [breakpoints.up("md")]: {
+      width: "100%",
+      marginLeft: spacing(-3),
+      marginTop: 0,
+      transform: "translateX(-8px)"
+    },
+    "&:after": {
+      content: '" "',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      // backgroundImage: 'linear-gradient(147deg, rgba(57,159,254,1) 0%, rgba(0,29,125,1) 74%)',
+      borderRadius: spacing(2), // 16
+      opacity: 0.5
+    }
+  },
+  content: {
+    padding: 24
+  },
+  cta: {
+    marginTop: 24,
+    textTransform: "initial"
   }
 }));
 
 export const ShowcaseCardDemo = React.memo(function ShowcaseCard() {
+  const dispatch = useDispatch();
   const styles = useStyles();
-  const gap = { xs: 1, sm: 1.5, lg: 2 };
+  const {
+    button: buttonStyles,
+    ...contentStyles
+  } = useBlogTextInfoContentStyles();
+  const shadowStyles = useOverShadowStyles();
   return (
-    <Grid container spacing={4} justify={"center"}>
-      <Grid item xs={12} sm={4} md={3}>
-        <Column
-          className={styles.card}
-          p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-          gap={gap}
-        >
-          <CardHeader />
-          <Item>
-            <Avatar
-              src="https://i.ibb.co/SsPydy5/ye8gj9p65fz61.png"
-              variant="square"
-            />
-          </Item>
-          <BasicProfile />
-        </Column>
-      </Grid>
-      <Grid item xs={12} sm={8} lg={7}>
-        <Row className={styles.card} p={{ xs: 0.5, sm: 0.75, lg: 1 }} gap={gap}>
-          <Column>
-            <CardHeader />
-            <BasicProfile position={"bottom"} />
-          </Column>
-        </Row>
-      </Grid>
-    </Grid>
+    <Card className={cx(styles.root, shadowStyles.root)}>
+      <CardContent>
+        <DiscordMessages>
+          <DiscordMessage
+            bot
+            author="DiscodoBot"
+            avatar="https://i.ibb.co/VpD09db/ye8gj9p65fz61-removebg-preview-removebg-preview.png"
+          >
+            <Emojify style={{ height: 32, width: 32 }}>
+              Howdyy 👋. Welcome to Discodo, your knock-off of Discord! Click
+              the help icon in the top left to get started and see what's new,
+              or go straight to{" "}
+              <DiscordMention
+                type="channel"
+                onClick={() =>
+                  dispatch(
+                    setChannelInfo({
+                      channelId: "uZfrNgeqBC7F97mPYGHP",
+                      channelName: "general",
+                      voiceChannel: false,
+                      channelType: "Text Channel",
+                      readOnly: false
+                    })
+                  )
+                }
+              >
+                general
+              </DiscordMention>
+              to start chatting!
+            </Emojify>
+          </DiscordMessage>
+        </DiscordMessages>
+      </CardContent>
+    </Card>
   );
 });
+
 export default ShowcaseCardDemo;

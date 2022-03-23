@@ -5,11 +5,10 @@
   background-color: #363a3f;
   height: 100vh;
 }
-.d-d{
+.d-d {
   display: none;
 }
 .chat__input {
-  
   color: lightgray;
   display: flex;
   align-items: center;
@@ -20,7 +19,10 @@
   border-top: 1px solid gray;
   background-color: #474b53;
 }
-
+.input-form {
+  display: flex;
+  flex: 1;
+}
 .chat__messages {
   flex: 1;
   overflow-y: scroll;
@@ -48,12 +50,13 @@
   padding: 15px;
   background: transparent;
   border: none;
+  /* display: flex; */
   /* width: 280px; */
-  display: flex;
   /* flex: 1; */
   outline-width: 0;
+  flex: 1;
   color: white;
-  font-size: 70%;
+  /* font-size: 70%; */
 }
 
 .chat__input > form {
