@@ -294,7 +294,7 @@ function Chat() {
       } else {
         handleBackdropClose();
         handleErr();
-      };
+      }
     });
   }, []);
   const sendImage = (e) => {
@@ -373,6 +373,7 @@ function Chat() {
             onDragOver={handleBackdrop}
             onDragLeave={handleBackdropClose}
             maxFiles={1}
+            noClick={true}
             //accept="image/*"
             disabled={!channelId || readonly}
           >
@@ -423,9 +424,7 @@ function Chat() {
                   ) : (
                     <>
                       <Stack direction="column" alignItems="center" spacing={1}>
-                        <Typography variant="h3">
-                          Drag & Drop
-                        </Typography>
+                        <Typography variant="h3">Drag & Drop</Typography>
                         <Typography variant="subtitle1">
                           Drop Some Files! (Images, Videos, & Audio)
                         </Typography>
