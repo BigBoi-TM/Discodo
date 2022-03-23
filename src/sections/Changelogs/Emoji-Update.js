@@ -3,7 +3,7 @@ import TextInfoContent from "@mui-treasury/components/content/textInfo";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import "../ChatHeader.css";
-function Update() {
+function Update2() {
   return (
     <>
       <Typography variant="h3">Emoji Update 🎉</Typography>
@@ -32,4 +32,4 @@ function Update() {
   );
 }
 
-export default Update;
+export default Update2;

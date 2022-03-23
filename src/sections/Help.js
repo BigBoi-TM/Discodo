@@ -15,7 +15,7 @@ import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 
-// import Update from "./Changelogs/Emoji-Update";
+import Update2 from "./Changelogs/Emoji-Update";
 import Update from "./Changelogs/Files-Update";
 
 const style = {
@@ -90,6 +90,8 @@ function HelpModal() {
             <Divider />
             <AccordionDetails sx={{ textAlign: "left" }}>
               <Update />
+              <Divider />
+              <Update2 />
             </AccordionDetails>
           </Accordion>
         </Box>
