@@ -12,9 +12,11 @@ import Modal from "@mui/material/Modal";
 import HelpIcon from "@mui/icons-material/Help";
 import ReactTooltip from "react-tooltip";
 import Divider from "@mui/material/Divider";
-import Update from "./Changelogs/Emoji-Update";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+
+// import Update from "./Changelogs/Emoji-Update";
+import Update from "./Changelogs/Files-Update";
 
 const style = {
   position: "absolute",
